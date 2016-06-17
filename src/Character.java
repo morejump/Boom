@@ -29,7 +29,7 @@ public abstract class Character {
         }
     }
 
-    public void update() throws InterruptedException {
+    public void update () throws InterruptedException {
         this.positionX += this.speedX;
         this.positionY += this.speedY;
         try {
