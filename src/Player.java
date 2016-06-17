@@ -24,7 +24,7 @@ public class Player extends Character {
 
     @Override
     public BoomPlayer dropBoom() {
-        BoomPlayer boomPlayer = new BoomPlayer(this.positionX, this.positionY);
+        BoomPlayer boomPlayer = new BoomPlayer(this.positionX+10, this.positionY+40);
         boomPlayers.add(boomPlayer);
         return  boomPlayer;
     }

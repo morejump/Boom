@@ -11,14 +11,21 @@ import java.util.ArrayList;
 public abstract class Boom implements ISubject {
     public int positionX;
     public int positionY;
-    public BufferedImage image;
-
+    public BufferedImage image,image1,image2,image3;
+    public int index=0;
+    public int speed=0;
     ArrayList<IObsever> iObsevers;
     public Boom(int positionX, int positionY) {
         this.positionX = positionX;
         this.positionY = positionY;
         try {
-            this.image = ImageIO.read(new File("Resources/Boom.png"));
+            this.image = ImageIO.read(new File("Resources/Image 805.png"));
+
+            this.image1 = ImageIO.read(new File("Resources/Image 807.png"));
+
+            this.image2 = ImageIO.read(new File("Resources/Image 809.png"));
+
+            this.image3 = ImageIO.read(new File("Resources/Image 811.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,7 +33,23 @@ public abstract class Boom implements ISubject {
     }
 
     public void draw(Graphics g) {
+        if(this.index==0)
         g.drawImage(this.image, this.positionX, this.positionY, null);
+        else if(this.index==1){
+            g.drawImage(this.image1, this.positionX, this.positionY, null);
+        }
+        else  if(this.index==2){
+            g.drawImage(this.image2, this.positionX, this.positionY, null);
+        }
+        else if(this.index==3){
+            g.drawImage(this.image3, this.positionX, this.positionY, null);
+        }
+        if(index==3) index=0;
+        if(speed>5){
+            index++;
+            speed=0;
+        }
+        speed++;
     }
 
     @Override
