@@ -195,35 +195,60 @@ public class GameWindow extends Frame implements Runnable {
     }
 
     public int testMove() {
-        Rectangle myPlay = new Rectangle(player.positionX, player.positionY, player.image.getWidth(), player.image.getHeight());
+        Rectangle myPlay = new Rectangle(player.positionX+10, player.positionY+40, player.image1.getWidth(), player.image1.getHeight()+20);
         for (int i = 0; i < explosiveBarriers.size(); i++) {
             Rectangle myTree = new Rectangle(explosiveBarriers.get(i).positionX, explosiveBarriers.get(i).positionY, explosiveBarriers.get(i).image.getWidth(), explosiveBarriers.get(i).image.getHeight());
             if (myPlay.intersects(myTree)) {
                 System.out.println("cham");
-                if (player.positionX <= explosiveBarriers.get(i).positionX && player.vector == 2) {
+                if (player.positionX+10 <= explosiveBarriers.get(i).positionX && player.vector == 2) {
                     player.positionX -= 1;
                     System.out.println("2");
                     return 2;
                 }
-                if (player.positionX >= explosiveBarriers.get(i).positionX && player.vector == 4) {
+                if (player.positionX+10 >= explosiveBarriers.get(i).positionX && player.vector == 4) {
                     player.positionX += 1;
                     System.out.println("4");
                     return 4;
                 }
-                if (player.positionY <= explosiveBarriers.get(i).positionY && player.vector == 3) {
+                if ( player.positionY+40 <= explosiveBarriers.get(i).positionY && player.vector == 3) {
                     player.positionY -= 1;
                     System.out.println("3");
                     return 3;
                 }
-                if (player.positionY >= explosiveBarriers.get(i).positionY && player.vector == 1) {
+                if ( player.positionY+40 >= explosiveBarriers.get(i).positionY && player.vector == 1) {
                     player.positionY += 1;
                     System.out.println("1");
                     return 1;
                 }
             }
         }
-
-        if (player.positionX >= 660) player.positionX = 660;
+        for (int i = 0; i < nonExplovsiveBarriers.size(); i++) {
+            Rectangle myTree = new Rectangle(nonExplovsiveBarriers.get(i).positionX, nonExplovsiveBarriers.get(i).positionY, nonExplovsiveBarriers.get(i).image.getWidth(), nonExplovsiveBarriers.get(i).image.getHeight());
+            if (myPlay.intersects(myTree)) {
+                System.out.println("cham");
+                if (player.positionX+10 <= nonExplovsiveBarriers.get(i).positionX && player.vector == 2) {
+                    player.positionX -= 1;
+                    System.out.println("2");
+                    return 2;
+                }
+                if (player.positionX+10 >= nonExplovsiveBarriers.get(i).positionX && player.vector == 4) {
+                    player.positionX += 1;
+                    System.out.println("4");
+                    return 4;
+                }
+                if ( player.positionY+40 <= nonExplovsiveBarriers.get(i).positionY && player.vector == 3) {
+                    player.positionY -= 1;
+                    System.out.println("3");
+                    return 3;
+                }
+                if ( player.positionY+40 >= nonExplovsiveBarriers.get(i).positionY && player.vector == 1) {
+                    player.positionY += 1;
+                    System.out.println("1");
+                    return 1;
+                }
+            }
+        }
+        if (player.positionX >= 690) player.positionX = 690;
         if (player.positionX <= 0) player.positionX = 0;
         if (player.positionY >= 560) player.positionY = 560;
         if (player.positionY <= 0) player.positionY = 0;
@@ -259,7 +284,7 @@ public class GameWindow extends Frame implements Runnable {
         }
         Graphics bufferedGraphics = bufferedImage.getGraphics();
         bufferedGraphics.drawImage(background, 0, 0, null);
-        player.draw(bufferedGraphics);
+
         pirate.draw(bufferedGraphics);
         for (ExplosiveBarrier explosiveBarrier : explosiveBarriers) {
             if (explosiveBarrier.isLive == true)
@@ -277,6 +302,7 @@ public class GameWindow extends Frame implements Runnable {
         for (NonExplovsiveBarrier nonExplovsiveBarrier : nonExplovsiveBarriers) {
             nonExplovsiveBarrier.draw(bufferedGraphics);
         }
+        player.draw(bufferedGraphics);
         g.drawImage(bufferedImage, 0, 0, null);
     }
 
