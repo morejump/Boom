@@ -20,6 +20,9 @@ public class GameWindow extends Frame implements Runnable {
     Player player;
     Pirate pirate;
     long startTime;
+    long startTime01;
+    int count = 0;
+
     public GameWindow() {// constructor
         this.setSize(750, 650);
         this.setTitle("Boom-Techkids");
@@ -136,27 +139,27 @@ public class GameWindow extends Frame implements Runnable {
                 //phim duoc an va giu
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
-                        player.vector=1;
+                        player.vector = 1;
 
                         player.speedY = -5;
 
 
                         break;
                     case KeyEvent.VK_LEFT:
-                        player.vector=4;
+                        player.vector = 4;
 
                         player.speedX = -5;
 
                         break;
                     case KeyEvent.VK_DOWN:
-                        player.vector=3;
+                        player.vector = 3;
 
                         player.speedY = 5;
 
 
                         break;
                     case KeyEvent.VK_RIGHT:
-                        player.vector=2;
+                        player.vector = 2;
 
                         player.speedX = 5;
 
@@ -165,6 +168,7 @@ public class GameWindow extends Frame implements Runnable {
                     case KeyEvent.VK_SPACE:
                         if (player.boomPlayers.size() == 0) {
                             startTime = System.currentTimeMillis();// starting count time here form time of droping bomb
+                            startTime01 = System.currentTimeMillis();
                             BoomPlayer boomPlayer = player.dropBoom();
                             for (ExplosiveBarrier explosiveBarrier : explosiveBarriers) {
                                 if (getDistance(explosiveBarrier.positionX + 45, explosiveBarrier.positionY + 45, boomPlayer.positionX + 45, boomPlayer.positionY + 45) <= 120) {
@@ -189,50 +193,52 @@ public class GameWindow extends Frame implements Runnable {
             e.printStackTrace();
         }
     }
-    public int testMove( ){
-        Rectangle myPlay = new Rectangle(player.positionX,player.positionY, player.image.getWidth(),player.image.getHeight());
-        for(int i=0 ; i<explosiveBarriers.size() ; i++){
-            Rectangle myTree = new Rectangle(explosiveBarriers.get(i).positionX,explosiveBarriers.get(i).positionY,explosiveBarriers.get(i).image.getWidth(),explosiveBarriers.get(i).image.getHeight());
-            if(myPlay.intersects(myTree)){
+
+    public int testMove() {
+        Rectangle myPlay = new Rectangle(player.positionX, player.positionY, player.image.getWidth(), player.image.getHeight());
+        for (int i = 0; i < explosiveBarriers.size(); i++) {
+            Rectangle myTree = new Rectangle(explosiveBarriers.get(i).positionX, explosiveBarriers.get(i).positionY, explosiveBarriers.get(i).image.getWidth(), explosiveBarriers.get(i).image.getHeight());
+            if (myPlay.intersects(myTree)) {
                 System.out.println("cham");
-                if(player.positionX<=explosiveBarriers.get(i).positionX&&player.vector==2){
-                    player.positionX-=1;
+                if (player.positionX <= explosiveBarriers.get(i).positionX && player.vector == 2) {
+                    player.positionX -= 1;
                     System.out.println("2");
                     return 2;
                 }
-                if(player.positionX>=explosiveBarriers.get(i).positionX&&player.vector==4) {
-                    player.positionX+=1;
+                if (player.positionX >= explosiveBarriers.get(i).positionX && player.vector == 4) {
+                    player.positionX += 1;
                     System.out.println("4");
                     return 4;
                 }
-                if (player.positionY<=explosiveBarriers.get(i).positionY&&player.vector==3){
-                    player.positionY-=1;
+                if (player.positionY <= explosiveBarriers.get(i).positionY && player.vector == 3) {
+                    player.positionY -= 1;
                     System.out.println("3");
                     return 3;
                 }
-                if(player.positionY>=explosiveBarriers.get(i).positionY&&player.vector==1){
-                    player.positionY+=1;
+                if (player.positionY >= explosiveBarriers.get(i).positionY && player.vector == 1) {
+                    player.positionY += 1;
                     System.out.println("1");
                     return 1;
                 }
             }
         }
 
-        if (player.positionX>=660) player.positionX=660;
-        if (player.positionX<=0) player.positionX=0;
-        if (player.positionY>=560) player.positionY=560;
-        if (player.positionY<=0) player.positionY=0;
+        if (player.positionX >= 660) player.positionX = 660;
+        if (player.positionX <= 0) player.positionX = 0;
+        if (player.positionY >= 560) player.positionY = 560;
+        if (player.positionY <= 0) player.positionY = 0;
 
         return 0;
     }
+
     public void gameUpdate() throws InterruptedException {
-        if(testMove()!=player.vector)
+        if (testMove() != player.vector)
             player.update();
         pirate.update();
-        if (System.currentTimeMillis() - startTime>=2000){// calcuting time to explosive bomb here :))
+        if (System.currentTimeMillis() - startTime >= 2000) {// calcuting time to explosive bomb here :))
             for (BoomPlayer boomPlayer1 : player.boomPlayers) {
                 try {
-                    boomPlayer1.notifyBarrier(0,0);
+                    boomPlayer1.notifyBarrier(0, 0);
 
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -247,6 +253,7 @@ public class GameWindow extends Frame implements Runnable {
 
     @Override
     public void update(Graphics g) {
+        count++;
         if (bufferedImage == null) {
             bufferedImage = new BufferedImage(750, 650, 1);
         }
@@ -255,7 +262,17 @@ public class GameWindow extends Frame implements Runnable {
         player.draw(bufferedGraphics);
         pirate.draw(bufferedGraphics);
         for (ExplosiveBarrier explosiveBarrier : explosiveBarriers) {
-            explosiveBarrier.draw(bufferedGraphics);
+            if (explosiveBarrier.isLive == true)
+                explosiveBarrier.draw(bufferedGraphics);// draw
+            if (explosiveBarrier.isLive == false) {
+                if (System.currentTimeMillis() - startTime01 <= 4000) {
+                    explosiveBarrier.draw(bufferedGraphics);
+                } else {
+                    explosiveBarriers.remove(explosiveBarrier);
+//                    count=0;
+                }
+            }
+
         }
         for (NonExplovsiveBarrier nonExplovsiveBarrier : nonExplovsiveBarriers) {
             nonExplovsiveBarrier.draw(bufferedGraphics);
