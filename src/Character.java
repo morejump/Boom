@@ -14,7 +14,7 @@ public abstract class Character {
     public int speedY;
     public BufferedImage image;
     String pathImage;
-
+    public int vector;
     public Character(int positionX, int positionY, String pathImage) {
         this.pathImage = pathImage;
         this.positionX = positionX;

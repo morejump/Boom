@@ -16,12 +16,13 @@ public class GameWindow extends Frame implements Runnable {
     Image background;
     BufferedImage bufferedImage;
     ArrayList<ExplosiveBarrier> explosiveBarriers;
+    ArrayList<NonExplovsiveBarrier> nonExplovsiveBarriers;
     Player player;
     Pirate pirate;
     long startTime;
     public GameWindow() {// constructor
         this.setSize(750, 650);
-        this.setTitle("Boom- Đồi Cô Lựu");
+        this.setTitle("Boom-Techkids");
         this.setVisible(true);
         this.addWindowListener(new WindowListener() {
             @Override
@@ -60,13 +61,70 @@ public class GameWindow extends Frame implements Runnable {
             }
         });// closing window
         pirate = new Pirate(400, 500, "haitac");
-        player = new Player(400, 400, "player");
+        player = new Player(500, 400, "player");
         explosiveBarriers = new ArrayList<ExplosiveBarrier>();
-        explosiveBarriers.add(new ExplosiveBarrier(600, 400, "Gach"));
-        explosiveBarriers.add(new ExplosiveBarrier(350, 400, "Gach"));
-        explosiveBarriers.add(new ExplosiveBarrier(200, 400, "Gach"));
-        explosiveBarriers.add(new ExplosiveBarrier(100, 400, "Gach"));
-        explosiveBarriers.add(new ExplosiveBarrier(600, 350, "Gach"));
+        nonExplovsiveBarriers = new ArrayList<NonExplovsiveBarrier>();
+
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(0, 25, "HoNuoc"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(0, 84, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(0, 200, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(0, 300, "CayDua"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(0, 500, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(38, 500, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(38, 559, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(0, 257, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(200, 25, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(238, 25, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(278, 25, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(700, 25, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(700, 82, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(520, 25, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(560, 25, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(340, 388, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(660, 570, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(700, 512, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(700, 300, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(700, 357, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(700, 432, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(700, 512, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(560, 150, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(560, 512, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(560, 400, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(560, 300, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(560, 350, "HoNuoc"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(600, 600, "House01"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(600, 640, "CaySuongRong"));
+        nonExplovsiveBarriers.add(new NonExplovsiveBarrier(600, 680, "House01"));
+
+        explosiveBarriers.add(new ExplosiveBarrier(38, 84, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(0, 400, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(0, 444, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(40, 444, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(0, 650, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(0, 580, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(276, 25, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(700, 139, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(700, 189, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(400, 25, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(440, 25, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(480, 25, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(598, 25, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(300, 300, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(340, 300, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(340, 344, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(700, 600, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(700, 556, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(400, 536, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(400, 306, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(400, 400, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(300, 556, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(300, 500, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(400, 600, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(400, 644, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(400, 688, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(440, 644, "Gach"));
+        explosiveBarriers.add(new ExplosiveBarrier(700, 489, "Gach"));
+
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -78,22 +136,36 @@ public class GameWindow extends Frame implements Runnable {
                 //phim duoc an va giu
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
-                        player.speedY = -6;
+                        player.vector=1;
+
+                        player.speedY = -5;
+
+
                         break;
                     case KeyEvent.VK_LEFT:
-                        player.speedX = -6;
+                        player.vector=4;
+
+                        player.speedX = -5;
+
                         break;
                     case KeyEvent.VK_DOWN:
-                        player.speedY = 6;
+                        player.vector=3;
+
+                        player.speedY = 5;
+
+
                         break;
                     case KeyEvent.VK_RIGHT:
-                        player.speedX = 6;
+                        player.vector=2;
+
+                        player.speedX = 5;
+
+
                         break;
                     case KeyEvent.VK_SPACE:
                         if (player.boomPlayers.size() == 0) {
                             startTime = System.currentTimeMillis();// starting count time here form time of droping bomb
                             BoomPlayer boomPlayer = player.dropBoom();
-                            boomPlayer.register(pirate);
                             for (ExplosiveBarrier explosiveBarrier : explosiveBarriers) {
                                 if (getDistance(explosiveBarrier.positionX + 45, explosiveBarrier.positionY + 45, boomPlayer.positionX + 45, boomPlayer.positionY + 45) <= 120) {
                                     boomPlayer.register(explosiveBarrier);// checking a distance before register
@@ -117,14 +189,50 @@ public class GameWindow extends Frame implements Runnable {
             e.printStackTrace();
         }
     }
+    public int testMove( ){
+        Rectangle myPlay = new Rectangle(player.positionX,player.positionY, player.image.getWidth(),player.image.getHeight());
+        for(int i=0 ; i<explosiveBarriers.size() ; i++){
+            Rectangle myTree = new Rectangle(explosiveBarriers.get(i).positionX,explosiveBarriers.get(i).positionY,explosiveBarriers.get(i).image.getWidth(),explosiveBarriers.get(i).image.getHeight());
+            if(myPlay.intersects(myTree)){
+                System.out.println("cham");
+                if(player.positionX<=explosiveBarriers.get(i).positionX&&player.vector==2){
+                    player.positionX-=1;
+                    System.out.println("2");
+                    return 2;
+                }
+                if(player.positionX>=explosiveBarriers.get(i).positionX&&player.vector==4) {
+                    player.positionX+=1;
+                    System.out.println("4");
+                    return 4;
+                }
+                if (player.positionY<=explosiveBarriers.get(i).positionY&&player.vector==3){
+                    player.positionY-=1;
+                    System.out.println("3");
+                    return 3;
+                }
+                if(player.positionY>=explosiveBarriers.get(i).positionY&&player.vector==1){
+                    player.positionY+=1;
+                    System.out.println("1");
+                    return 1;
+                }
+            }
+        }
 
+        if (player.positionX>=660) player.positionX=660;
+        if (player.positionX<=0) player.positionX=0;
+        if (player.positionY>=560) player.positionY=560;
+        if (player.positionY<=0) player.positionY=0;
+
+        return 0;
+    }
     public void gameUpdate() throws InterruptedException {
-        player.update();
+        if(testMove()!=player.vector)
+            player.update();
         pirate.update();
         if (System.currentTimeMillis() - startTime>=2000){// calcuting time to explosive bomb here :))
             for (BoomPlayer boomPlayer1 : player.boomPlayers) {
                 try {
-                    boomPlayer1.notifyBarrier(boomPlayer1.positionX,boomPlayer1.positionY);
+                    boomPlayer1.notifyBarrier(0,0);
 
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -148,6 +256,9 @@ public class GameWindow extends Frame implements Runnable {
         pirate.draw(bufferedGraphics);
         for (ExplosiveBarrier explosiveBarrier : explosiveBarriers) {
             explosiveBarrier.draw(bufferedGraphics);
+        }
+        for (NonExplovsiveBarrier nonExplovsiveBarrier : nonExplovsiveBarriers) {
+            nonExplovsiveBarrier.draw(bufferedGraphics);
         }
         g.drawImage(bufferedImage, 0, 0, null);
     }
