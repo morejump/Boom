@@ -14,6 +14,8 @@ public class Player extends Character {
 
     @Override
     public void draw(Graphics g) {
+
+        g.drawImage(this.image1,this.positionX+15,this.positionY+60,null);
         g.drawImage(this.image, this.positionX, this.positionY, null);
         for (BoomPlayer boomPlayer : boomPlayers) {
             boomPlayer.draw(g);
