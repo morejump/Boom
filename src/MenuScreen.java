@@ -35,7 +35,10 @@ public class MenuScreen implements Screen {
         GameManager.getInstance().getStackScreen().push(playScreen);
     }
     public  void pressM(){
-     //   GameManager.getInstance().getStackScreen().push(new SupportScreen());
+        SupportScreen supportScreen = new SupportScreen();
+        supportScreen.setFrame(frame);
+        frame.addMouseListener(supportScreen);
+        GameManager.getInstance().getStackScreen().push(supportScreen);
     }
 
     @Override
