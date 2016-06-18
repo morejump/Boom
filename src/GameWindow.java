@@ -1,9 +1,6 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -132,7 +129,60 @@ public class GameWindow extends Frame implements Runnable {
 //        explosiveBarriers.add(new ExplosiveBarrier(400, 688, "Gach"));
 //        explosiveBarriers.add(new ExplosiveBarrier(440, 644, "Gach"));
 //        explosiveBarriers.add(new ExplosiveBarrier(700, 489, "Gach"));
+        this.addMouseListener(new MouseListener() {
+            @Override
 
+            public void mouseClicked(MouseEvent e) {
+
+                Rectangle rectangle = new Rectangle(22, 300, 167, 54);
+                Point p = new Point(e.getX(), e.getY());
+                Rectangle rectangle1 = new Rectangle(211, 300, 167, 54);
+
+                if (rectangle.contains(p)) {
+                    // chuyen sang man hinh huong dan
+                    menuScreen.pressM();
+                }
+                if (rectangle1.contains(p)) {
+                    // chuyen sang man hinh choi
+                    menuScreen.pressN();
+                }
+
+            }
+
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+//                if(e.getButton() == MouseEvent.BUTTON1)
+//                {
+//                    x =(int) e.getPoint().getX();
+//                    y = (int) e.getPoint().getY();
+//                    player2.move(x,y);
+//                }
+//                else if(e.getButton() == MouseEvent.BUTTON3)
+//                {
+//                    ((PlaneSupport)player2).m++;
+//                    if(((PlaneSupport)player2).m>50)((PlaneSupport)player2).m=1;
+//                    ((PlaneSupport)player2).mypaste[((PlaneSupport)player2).m] = new paste(player2.positionx,player2.positiony);
+//                    ((PlaneSupport)player2).mypaste[((PlaneSupport)player2).m].shot=true;
+//                    if(((PlaneSupport)player2).m>((PlaneSupport)player2).n)((PlaneSupport)player2).n=((PlaneSupport)player2).m;
+//                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         this.addKeyListener(new KeyListener() {
         @Override
         public void keyTyped(KeyEvent e) {
