@@ -49,19 +49,19 @@ public class SupportScreen implements Screen,MouseListener {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(this.image5,15,40,null);
-        g.drawImage(this.image6,57,120,null);
-        g.drawImage(this.image7,35,170,null);
-        g.drawImage(this.image8,69,210,null);
-        g.drawImage(this.image9,227,210,null);
-        g.drawImage(this.image10,116,300,null);
+        g.drawImage(this.image5,0,0,null);
+        g.drawImage(this.image6,250,230,null);
+        g.drawImage(this.image7,130,290,null);
+        g.drawImage(this.image8,150,370,null);
+        g.drawImage(this.image9,400,370,null);
+        g.drawImage(this.image10,300,530,null);
 
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         Point p = new Point(e.getX(), e.getY());
-        Rectangle rectangle3 = new Rectangle(116, 300, 167, 54);
+        Rectangle rectangle3 = new Rectangle(300, 530, 167, 54);
         if (rectangle3.contains(p)) {
             // chuyen sang man hinh play
             pressN();

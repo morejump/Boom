@@ -361,7 +361,7 @@ public class GameWindow extends Frame implements Runnable {
 
 //        count++;
         if (bufferedImage == null) {
-            bufferedImage = new BufferedImage(800, 600, 1);
+            bufferedImage = new BufferedImage(750, 650, 1);
         }
         Graphics bufferedGraphics = bufferedImage.getGraphics();
         GameManager.getInstance().getStackScreen().peek().draw(bufferedGraphics);
