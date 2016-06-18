@@ -23,7 +23,7 @@ public class GameWindow extends Frame implements Runnable {
 //    int count = 0;
 
     public GameWindow() {// constructor
-        this.setSize(800, 600);
+        this.setSize(750, 650);
         this.setTitle("Boom-Techkids");
         this.setVisible(true);
         MenuScreen menuScreen = new MenuScreen();
@@ -134,9 +134,9 @@ public class GameWindow extends Frame implements Runnable {
 
             public void mouseClicked(MouseEvent e) {
 
-                Rectangle rectangle = new Rectangle(22, 300, 167, 54);
+                Rectangle rectangle = new Rectangle(150, 500, 167, 54);
                 Point p = new Point(e.getX(), e.getY());
-                Rectangle rectangle1 = new Rectangle(211, 300, 167, 54);
+                Rectangle rectangle1 = new Rectangle(400, 500, 167, 54);
 
                 if (rectangle.contains(p)) {
                     // chuyen sang man hinh huong dan

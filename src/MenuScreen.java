@@ -35,7 +35,7 @@ public class MenuScreen implements Screen {
         GameManager.getInstance().getStackScreen().push(playScreen);
     }
     public  void pressM(){
-        GameManager.getInstance().getStackScreen().push(new SupportScreen());
+     //   GameManager.getInstance().getStackScreen().push(new SupportScreen());
     }
 
     @Override
@@ -46,8 +46,8 @@ public class MenuScreen implements Screen {
     @Override
     public void draw(Graphics g) {
         g.drawImage(this.image1,15,40,null);
-        g.drawImage(this.image2,22,300,null);
-        g.drawImage(this.image3,211,300,null);
+        g.drawImage(this.image2,150,500,null);
+        g.drawImage(this.image3,400,500,null);
     }
 
 
