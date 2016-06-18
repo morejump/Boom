@@ -15,16 +15,28 @@ import java.util.ArrayList;
 public class PlayScreen  implements Screen,KeyListener{
 
 
+//    Image background;
+//    BufferedImage bufferedImage;
+//    ArrayList<ExplosiveBarrier> explosiveBarriers;
+//    ArrayList<NonExplovsiveBarrier> nonExplovsiveBarriers;
+//    Player player;
+//    Pirate pirate;
+//    long startTime;
+//    long startTime01;
+//    int count = 0;
+
     Image background;
     BufferedImage bufferedImage;
     ArrayList<ExplosiveBarrier> explosiveBarriers;
     ArrayList<NonExplovsiveBarrier> nonExplovsiveBarriers;
     Player player;
     Pirate pirate;
-    long startTime;
-    long startTime01;
+
+    long startTime, startTime01, startTime02;
     int count = 0;
+
     public PlayScreen(){
+        startTime02 = System.currentTimeMillis();
         pirate = new Pirate(400, 500, "haitac");
         player = new Player(500, 400, "player");
         explosiveBarriers = new ArrayList<ExplosiveBarrier>();
@@ -164,21 +176,79 @@ public class PlayScreen  implements Screen,KeyListener{
 
     @Override
     public void update() {
+        count++;
+        if (pirate.boomPirates.size() == 0) {
+            if (count == 117) {
+                startTime02 = System.currentTimeMillis();// bat dau tinh thoi gian de cho bomb cua hai tac no nhe
+                BoomPirate boomPirate = pirate.dropBoom();
+                count = 0;
+                for (ExplosiveBarrier explosiveBarrier : explosiveBarriers) {
+                    if (getDistance(explosiveBarrier.positionX + 45, explosiveBarrier.positionY + 45, boomPirate.positionX + 45, boomPirate.positionY + 45) <= 120) {
+                        boomPirate.register(explosiveBarrier);// checking a distance before register
+
+                    }
+                }
+
+            }
+        }
+        if (System.currentTimeMillis() - startTime02 >= 1800) {// bomb cua hai tac bat dau no--> tinh khoang cach hien thoi cua qua bomb voi player
+            for (BoomPirate boomPirate : pirate.boomPirates) {
+                try {
+                    boomPirate.image=ImageIO.read(new File("Resources/BoomNo.png"));
+
+                boomPirate.image1=ImageIO.read(new File("Resources/BoomNo.png"));
+                boomPirate.image2=ImageIO.read(new File("Resources/BoomNo.png"));
+                boomPirate.image3=ImageIO.read(new File("Resources/BoomNo.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }}
+        if (System.currentTimeMillis() - startTime02 >= 2000){
+            for (BoomPirate boomPirate : pirate.boomPirates) {
+                boomPirate.register(player);
+                try {
+                    boomPirate.notifyBarrier(boomPirate.positionX, boomPirate.positionY);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            pirate.boomPirates.clear();
+        }
+        // ham test va cham o day nhe
         if (testMove() != player.vector)
             try {
                 player.update();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        try {
-            pirate.update();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (pirate != null) {
+            try {
+                pirate.update();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        if (System.currentTimeMillis() - startTime >= 1800) {// bomb cua hai tac bat dau no--> tinh khoang cach hien thoi cua qua bomb voi player
+            for (BoomPlayer boomPlayer : player.boomPlayers) {
+                try {
+                    boomPlayer.image=ImageIO.read(new File("Resources/BoomNo.png"));
+
+                boomPlayer.image1=ImageIO.read(new File("Resources/BoomNo.png"));
+                boomPlayer.image2=ImageIO.read(new File("Resources/BoomNo.png"));
+                boomPlayer.image3=ImageIO.read(new File("Resources/BoomNo.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }}
         if (System.currentTimeMillis() - startTime >= 2000) {// calcuting time to explosive bomb here :))
             for (BoomPlayer boomPlayer1 : player.boomPlayers) {
                 try {
-                    boomPlayer1.notifyBarrier(0, 0);
+                    if (pirate != null) {
+                        boomPlayer1.register(pirate);
+                    }
+                    boomPlayer1.notifyBarrier(boomPlayer1.positionX, boomPlayer1.positionY);
 
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -192,32 +262,45 @@ public class PlayScreen  implements Screen,KeyListener{
 
     @Override
     public void draw(Graphics g) {
-        count++;
         if (bufferedImage == null) {
             bufferedImage = new BufferedImage(750, 650, 1);
         }
         Graphics bufferedGraphics = bufferedImage.getGraphics();
         bufferedGraphics.drawImage(background, 0, 0, null);
 
-        pirate.draw(bufferedGraphics);
+        if (pirate != null) {
+            if (pirate.isLive == true) {
+                pirate.draw(bufferedGraphics);
+            } else if (pirate.isLive == false) {
+                pirate = null;
+            }
+        }
+        if (player != null) {
+            if (player.isLive == true) {
+                player.draw(bufferedGraphics);
+            } else if (player.isLive == false) {
+                player = null;
+            }
+        }
+
         for (ExplosiveBarrier explosiveBarrier : explosiveBarriers) {
-            if (explosiveBarrier.isLive == true)
-                explosiveBarrier.draw(bufferedGraphics);// draw
-            if (explosiveBarrier.isLive == false) {
-                if (System.currentTimeMillis() - startTime01 <= 4000) {
+            if (explosiveBarrier.isLive == true) {
+                explosiveBarrier.draw(bufferedGraphics);
+            } else if (explosiveBarrier.isLive == false) {
+                if (System.currentTimeMillis() - startTime01 <= 2200 || System.currentTimeMillis() - startTime02 <= 2200) {
                     explosiveBarrier.draw(bufferedGraphics);
                 } else {
                     explosiveBarriers.remove(explosiveBarrier);
-//                    count=0;
                 }
             }
 
         }
+
         for (NonExplovsiveBarrier nonExplovsiveBarrier : nonExplovsiveBarriers) {
             nonExplovsiveBarrier.draw(bufferedGraphics);
         }
-        player.draw(bufferedGraphics);
         g.drawImage(bufferedImage, 0, 0, null);
+
     }
 
 

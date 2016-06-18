@@ -7,6 +7,7 @@ import java.util.Random;
  * Created by Admin on 6/15/2016.
  */
 public class Pirate extends Character implements IObsever {
+    boolean isLive = true;
     ArrayList<BoomPirate> boomPirates;
 
     public Pirate(int positionX, int positionY, String pathImage) {
@@ -66,11 +67,14 @@ public class Pirate extends Character implements IObsever {
 
     @Override
     public void draw(Graphics g) {
+        g.drawImage(this.image1, this.positionX+15, this.positionY+60, null);
         g.drawImage(this.image, this.positionX, this.positionY, null);
         for (BoomPirate boomPirate : boomPirates) {
             boomPirate.draw(g);
         }
     }
+
+
 
     @Override
     public BoomPirate dropBoom() {
@@ -83,8 +87,9 @@ public class Pirate extends Character implements IObsever {
     @Override
     public void explosive(int positionX, int positionY) throws IOException, InterruptedException {
         // action for pirate after bomb explosives (checking a current distance with bomb)
-        if (this.getDistance(this.positionX, this.positionY, positionX, positionY) <= 200) {
+        if (this.getDistance(this.positionX, this.positionY, positionX, positionY) <= 100) {
             System.out.println("Em bi no roi nhe");// just test
+            isLive = false;
         }
     }
 
