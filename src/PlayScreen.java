@@ -204,7 +204,7 @@ public class PlayScreen  implements Screen,KeyListener{
             if (explosiveBarrier.isLive == true)
                 explosiveBarrier.draw(bufferedGraphics);// draw
             if (explosiveBarrier.isLive == false) {
-                if (System.currentTimeMillis() - startTime01 <= 4000) {
+                if (System.currentTimeMillis() - startTime01 <=2222) {
                     explosiveBarrier.draw(bufferedGraphics);
                 } else {
                     explosiveBarriers.remove(explosiveBarrier);
@@ -269,7 +269,7 @@ public class PlayScreen  implements Screen,KeyListener{
                     startTime01 = System.currentTimeMillis();
                     BoomPlayer boomPlayer = player.dropBoom();
                     for (ExplosiveBarrier explosiveBarrier : explosiveBarriers) {
-                        if (getDistance(explosiveBarrier.positionX + 45, explosiveBarrier.positionY + 45, boomPlayer.positionX + 45, boomPlayer.positionY + 45) <= 120) {
+                        if (getDistance(explosiveBarrier.positionX + 45, explosiveBarrier.positionY + 45, boomPlayer.positionX + 45, boomPlayer.positionY + 45) <= 70) {
                             boomPlayer.register(explosiveBarrier);// checking a distance before register
 
                         }
